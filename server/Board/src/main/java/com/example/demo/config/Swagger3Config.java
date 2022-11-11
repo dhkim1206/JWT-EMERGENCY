@@ -20,9 +20,6 @@ import java.util.List;
 
 /**
  * Swagger3Config 설명 : swagger3 API 문서를 만들때 설정
- * @author jowonjun
- * @version 1.0.0
- * 작성일 : 2022/01/04
  **/
 @Configuration
 @EnableOpenApi
@@ -53,9 +50,6 @@ public class Swagger3Config {
 
     /**
      * securityContext 설명 :  스웨거 등록
-     * @author jowonjun
-     * @version 1.0.0
-     * 작성일 : 2022/01/27
      **/
     private SecurityContext securityContext() {
         return SecurityContext.builder()
@@ -72,9 +66,6 @@ public class Swagger3Config {
 
     /**
      * apiKey 설명 : jwt 를 활용한 인증방식 설정을 위한 Api key
-     * @author jowonjun
-     * @version 1.0.0
-     * 작성일 : 2022/01/25
      **/
     private ApiKey apiKey() {
         return new ApiKey("Authorization","Authorization","header");

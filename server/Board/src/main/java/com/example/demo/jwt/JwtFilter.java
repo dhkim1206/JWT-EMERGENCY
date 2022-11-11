@@ -45,27 +45,27 @@ public class JwtFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
 
-        if(request.getServletPath().startsWith("/auth")) {
-            filterChain.doFilter(request,response);
-        }else {
+        if (request.getServletPath().startsWith("/auth")) {
+            filterChain.doFilter(request, response);
+        } else {
             String token = resolveToken(request);
 
-            log.debug("token  = {}",token);
-            if(StringUtils.hasText(token)) {
+            log.debug("token  = {}", token);
+            if (StringUtils.hasText(token)) {
                 int flag = tokenProvider.validateToken(token);
 
-                log.debug("flag = {}",flag);
+                log.debug("flag = {}", flag);
                 // 토큰 유효함
-                if(flag == 1) {
+                if (flag == 1) {
                     this.setAuthentication(token);
-                }else if(flag == 2) { // 토큰 만료
+                } else if (flag == 2) { // 토큰 만료
                     response.setContentType("application/json");
                     response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                     response.setCharacterEncoding("UTF-8");
                     PrintWriter out = response.getWriter();
                     log.debug("doFilterInternal Exception CALL!");
                     out.println("{\"error\": \"ACCESS_TOKEN_EXPIRED\", \"message\" : \"엑세스토큰이 만료되었습니다.\"}");
-                }else { //잘못된 토큰
+                } else { //잘못된 토큰
                     response.setContentType("application/json");
                     response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                     response.setCharacterEncoding("UTF-8");
@@ -73,8 +73,7 @@ public class JwtFilter extends OncePerRequestFilter {
                     log.debug("doFilterInternal Exception CALL!");
                     out.println("{\"error\": \"BAD_TOKEN\", \"message\" : \"잘못된 토큰 값입니다.\"}");
                 }
-            }
-            else {
+            } else {
                 response.setContentType("application/json");
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                 response.setCharacterEncoding("UTF-8");
@@ -85,9 +84,7 @@ public class JwtFilter extends OncePerRequestFilter {
     }
 
     /**
-     *
-     * @param token
-     * 토큰이 유효한 경우 SecurityContext에 저장
+     * @param token 토큰이 유효한 경우 SecurityContext에 저장
      */
     private void setAuthentication(String token) {
         Authentication authentication = tokenProvider.getAuthentication(token);
@@ -103,3 +100,4 @@ public class JwtFilter extends OncePerRequestFilter {
         }
         return null;
     }
+}

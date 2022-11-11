@@ -4,7 +4,7 @@ package com.example.demo.config;
 import com.example.demo.jwt.CustomEmailPasswordAuthProvider;
 import com.example.demo.jwt.JwtFilter;
 import com.example.demo.jwt.TokenProvider;
-import com.memo.backend.jwt.*;
+import com.example.demo.jwt.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,6 +20,7 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+
 /**
  * SecurityConfig  : 코드 정리 필요
  원래 SecurityConfig 파일안에 PasswordEncoder도 있었으나 빈 순환참조 에러 때문에 따로 빼서 빈으로 설정
@@ -31,8 +32,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  **/
 
 @EnableWebSecurity // 기본적인 웹보안을 사용하겠다는 것
-@RequiredArgsConstructor
 @EnableGlobalMethodSecurity(prePostEnabled = true) // @PreAuthorize 사용을 위함
+@RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter { // WebSecurityConfigurerAdapter 를 확장하면 보안 관련된 설정을 커스터마이징 할 수 있음
     private final TokenProvider tokenProvider;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
@@ -53,13 +54,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { // WebSecurit
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(customEmailPasswordAuthProvider);
     }
+
     // h2 database 테스트가 원활하도록 관련 API 들은 전부 무시
     @Override
     public void configure(WebSecurity web) {
         web.ignoring()
                 .antMatchers("/h2-console/**", "/favicon.ico");
     }
-
 
 
     @Override
@@ -98,5 +99,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { // WebSecurit
                 // SecurityContext를 사용하기 때문에 앞단의 필터에서 SecurityContext가 설정되고 난뒤 필터를 둔다.
                 .and()
                 .addFilterBefore(new JwtFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class);
-
     }
+}

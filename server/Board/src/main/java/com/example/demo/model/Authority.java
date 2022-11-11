@@ -23,4 +23,4 @@ public class Authority {
         return this.authorityName.toString();
     }
 }
-}
+

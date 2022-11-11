@@ -18,9 +18,6 @@ import java.util.Optional;
 
 /**
  * initDataBaseForLocal 설명 : 로컬에서 테스트용으로 사용하기위해 데이터를 넣어 두기 위한 코드
- * @author jowonjun
- * @version 1.0.0
- * 작성일 : 2022/02/28
  **/
 @Profile("local") // local 용
 @Component

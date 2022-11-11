@@ -18,10 +18,7 @@ import javax.persistence.Table;
 
 
 /**
- * MemberService 설명 : 멤버 등록 및 조회
- * @author jowonjun
- * @version 1.0.0
- * 작성일 : 2022/01/02
+ * 멤버 등록 및 조회
  **/
 @Slf4j
 @Service

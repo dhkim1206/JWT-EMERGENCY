@@ -22,11 +22,11 @@ public enum MemberAuth {
 
     private final String abbreviation;
 
-    private static final Map<String,MemberAuth> lookup = new HashMap<>();
+    private static final Map<String, MemberAuth> lookup = new HashMap<>();
 
     static {
-        for(MemberAuth auth : MemberAuth.values()) {
-            lookup.put(auth.abbreviation,auth);
+        for (MemberAuth auth : MemberAuth.values()) {
+            lookup.put(auth.abbreviation, auth);
         }
     }
 
@@ -46,5 +46,6 @@ public enum MemberAuth {
     public static boolean containsKey(String abbreviation) {
         return lookup.containsKey(abbreviation);
     }
+}
 
 
